@@ -1,0 +1,554 @@
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>form</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<style>
+ .box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #aaa;
+    margin: 20px 0;
+    padding: 10px;
+    width: 100%;
+    min-height: 200px;
+    border: 2px #ccc solid;
+    color: #fff;
+  }
+  ._my_input_1{
+    border: none;
+    width: 100%;
+    border: 1px #aaa solid;
+    padding: 2px 10px;
+    border-radius: 5px;
+  }
+  
+  .my_sumite_btn{
+	  
+	  boder-display:none; 
+	  padding:10px 30px;
+	  border-radius:5px;
+	  background-color: #9f9f9f; 
+	  color:#fff;
+  }
+	  
+</style>
+<x-app-layout>
+    <div>
+        <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
+            <div class="container mx-auto px-6 py-1 pb-16">
+                <div class="bg-white shadow-md rounded my-6 p-5">
+
+
+                    <form method="POST" action="{{ route('admin.survey.store') }}">
+                        @csrf
+
+                        <div class="container text-center">
+                            <h1><b>Survey Form </b></h1>
+                            
+                            <h4><b>Form-A</b></h4>
+                        </div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-xs-12 mt-4">
+                                    <p><b>Note:</b> In view of the inherent difficulties in determining the carpet area, the total covered area will be considered as 80 percent of the carpet area.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="row">
+
+                            <div class="col-xs-12 col-sm-6">
+                                    <div>
+                                        <p>1. Date</P>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-6">
+                                    <div>
+                                        <input type="date" name="owner_name" class="_my_input_1"  placeholder="Dob (dd/mm/yyyy)" max="2099-12-30">
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-xs-12 col-sm-6">
+                                    <div>
+                                        <p>2. Property Owner Name Mr./Mrs.</P>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-6">
+                                    <div>
+                                        <input type="text" name="owner_name" class="_my_input_1"  required>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="container">
+                            <div class="row">
+
+                                <div class="col-xs-12 col-sm-6">
+                                    <div>
+                                        <p>3. Father/Husband Name Mr.</P>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-6">
+                                    <div>
+                                        <input type="text" name="owner_father_husband" class="_my_input_1" required>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="container">
+                            <div class="row">
+
+                                <div class="col-xs-12 col-sm-6">
+                                    <div>
+                                        <p>4. Mobile Number of Property Owner </P>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-6">
+                                    <div>
+                                        <input type="text" name="occupier_name" class="_my_input_1" required>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- <div class="container">
+                            <div class="row">
+
+                                <div class="col-xs-12 col-sm-6">
+                                    <div>
+                                        <p>5. Aadhar Card Number of Property Owner.</P>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-6">
+                                    <div>
+                                        <input type="text" name="presbyter_name" class="_my_input_1" required>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div> -->
+
+                        <div class="container">
+                            <div class="row">
+
+
+
+                                <div class="col-xs-12 col-sm-4">
+                                    <div>
+                                        <p>5. Aadhar Card No. of Property Owner</p>
+                                        <input type="text" name="polt_number" class="_my_input_1" required>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-4">
+                                    <div>
+                                        <p>Mohhalla</p>
+                                        <input type="text " name="coloney" class="_my_input_1" required>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-4">
+                                    <div>
+                                        <p>Ward No.</p>
+                                        <input type="text " name="ward" class="_my_input_1" required>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="row">
+                            <div class="col-xs-12 col-sm-4">
+                                    <div>
+                                        <p>6. Category of Property Owner </P>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-2">
+                                    <div>
+                                    
+                                        <input type="radio"  name="category" value="Male"> Male
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-2">
+                                    <div>                                       
+                                        <input type="radio"  name="category" value="Female"> Female
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-2">
+                                    <div>
+                                        <input type="radio"  name="category" value="Other"> Other
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="row">
+                            <div class="col-xs-12 col-sm-4">
+                                    <div>
+                                        <p>7. Sub Category of Property Owner</P>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-2">
+                                    <div>
+                                    
+                                        <input type="radio"  name="sub_category" value="Window"> Window
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-2">
+                                    <div>                                       
+                                        <input type="radio"  name="sub_category" value="Divyang"> Divyang
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-2">
+                                    <div>
+                                        <input type="radio"  name="sub_category" value="Other"> Other
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+
+
+                        <div class="container">
+                            <div class="row">
+                            <div class="col-xs-12 col-sm-4">
+                                    <div>
+                                        <p>8. Ownership Type </P>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-3">
+                                    <div>
+                                    
+                                        <input type="radio"  name="ownership" value="Property Owner">Property Owner
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-2">
+                                    <div>                                       
+                                        <input type="radio"  name="ownership" value="Adhyasi"> Adhyasi
+                                    </div>
+                                </div>
+                           
+                        </div>
+
+
+
+
+
+
+
+
+<!-- 
+                        <div class="container mt-3">
+                           
+
+                            <div class="row">
+
+                                <div class="col-xs-12 col-sm-6">
+                                    <div>
+                                        <p>(1) In Square Meter</p>
+                                        <input type="text" name="sqm" class="_my_input_1" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-6">
+                                    <div>
+                                        <p>(2) In Square Feet</p>
+                                        <input type="text " name="square_feet" class="_my_input_1" required>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div> -->
+
+                        <div class="container mt-4 pt-2">
+                            <div class="row">
+
+                                <div class="col-xs-12 col-sm-6">
+                                    <div>
+                                        <p>9. Use of Property And Type of Residence </P>
+                                    </div>
+                                </div>
+
+                                <div >
+                                    <div>
+                                    <select id="formSel">
+                                                <option value="-">RESIDENTIAL </option>
+                                                <option value="1">SELF</option>
+                                                <option value="2">RENTAL </option>
+                                                <option value="3">MIX </option>
+                                                </select>
+                                         </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="container">
+                            <p>8. Carpet Area per Floor (in sq. ft.):</P>
+                            <div class="row">
+
+
+                                <div class="col-xs-12 col-sm-6">
+                                    <div>
+                                        <p>A) Basement..</P>
+                                        <input type="text" name="carpet_area_basemen" class="_my_input_1" required>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-6">
+                                    <div>
+                                        <p>B) Ground floor..</P>
+                                        <input type="text" name="carpet_area_ground" class="_my_input_1" required>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+
+
+                                <div class="col-xs-12 col-sm-6">
+                                    <div class="mt-3">
+                                        <p>C) First floor.</P>
+                                        <input type="text" name="carpet_area_first" class="_my_input_1" required>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-6">
+                                    <div class="mt-3">
+                                        <p>D) Second floor.</P>
+                                        <input type="text" name="carpet_area_second" class="_my_input_1" required>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+
+                                <div class="col-xs-12 col-sm-6">
+                                    <div class="mt-3">
+                                        <p>E) 3rd floor...</P>
+                                        <input type="text" name="carpet_area_third" class="_my_input_1" required>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-6">
+                                    <div class="mt-3">
+                                        <p>R) Other floor...</P>
+                                        <input type="text" name="carpet_area_Other" class="_my_input_1">
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+
+                                <div class="col-xs-12 col-sm-6">
+                                    <div class="mt-3">
+                                        <p>Total (in sq. ft.)</P>
+                                        <input type="text" name="sum_sq_ft" class="_my_input_1" required>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-6">
+                                    <div>
+                                        <!-- <input type="text" class="_my_input_1"> -->
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                        <div class="container mt-3">
+                            9.  Plot/Building Status:
+                            <div class="row mt-3">
+
+                                <div class="col-xs-12 col-sm-6">
+                                    <div>
+                                        <p>a) on a road up to 12 meters wide</P>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-6">
+                                    <!-- <div class="_my_checkbox">
+                        <input class="checkbox-in" type="checkbox">
+                    </div> -->
+                    <input type="radio"  name="plot_appearance_12_meters" value="on a road up to 12 meters wide">
+                    
+
+                                </div>
+                                <div class="col-xs-12 col-sm-6">
+                                    <div>
+                                        <p>b) On a road more than 12 meters up to 24 meters wide</P>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-6">
+                                    <div>
+                                        <input type="radio"  value="On a road more than 12 meters up to 24 meters wide" name="plot_appearance_12_meters" type="checkbox" required>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6">
+                                    <div>
+                                        <p>c) On a road more than 24 meters wide
+
+                                        </P>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-6">
+                                    <div>
+                                        <input type="radio"  value="On a road more than 24 meters wide" name="plot_appearance_12_meters" type="checkbox" required>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="row">
+
+                                <div class="col-xs-12 col-sm-6">
+                                    <div>
+                                        <p>10. Carpet area (in square feet) of the area being used by the building owner himself.
+                                        </P>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-6">
+                                    <div>
+                                        <input type="text" name="carpet_area_used_owner" class="_my_input_1" required>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="container">
+                            <div class="row">
+
+                                <div class="col-xs-12 col-sm-6">
+                                    <div>
+                                        <p>11. (A) If on rent, the carpet area (in square feet) of the area being used by the tenant.</P>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-6">
+                                    <div>
+                                        <input type="text" name="carpet_area_used_renter" class="_my_input_1" required>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+
+
+                                <div class="col-xs-12 col-sm-6">
+                                    <div>
+                                        <p>Rent per month...</P>
+                                        <input type="text" name="monthly_rental" class="_my_input_1">
+
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-6">
+                                    <div>
+                                        <p>b) If any part of the building is in commercial use, then its covered area in square feet..</P>
+                                        <input type="text" name="carpet_area_use_commercial" class="_my_input_1" required>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="container mt-3">
+                            <div class="row">
+
+                                <div class="col-xs-12 col-sm-6">
+                                    <div>
+                                        <p>12. Year of construction..
+                                        </P>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-6">
+                                    <div>
+                                        <input type="text" name="construction_year" class="_my_input_1" required>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="container mt-2">
+                            <div class="row">
+
+                                <div class="col-xs-12 col-sm-6">
+                                    <div>
+                                        <p>13. Monthly rental rate (in per sq. ft.) fixed by the municipality.
+                                        </P>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-6">
+                                    <div>
+                                        <input type="text" name="monthly_rental_fixed_municipality" class="_my_input_1" required>
+                                    </div>
+                                </div>
+
+                                
+
+                                <input class="my_sumite_btn" type="submit">     
+                                <!-- <a href="#"  ><button > Submit </button></a> -->
+
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+
+
+
+
+                
+        </main>
+    </div>
+    </div>
+</x-app-layout>
+
+
