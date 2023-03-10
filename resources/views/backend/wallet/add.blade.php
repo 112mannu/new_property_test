@@ -42,8 +42,8 @@
                                     <label for="loginid">Select Employee Login id*</label>
                                     <select  id="loginid" class="form-control" name="user_id">
                                     <option>--- Select Emplayee Login id ---</option>
+ 
                                         @foreach(\App\Models\User::where(['name'=>0])->get() as $state)
-
                                         <option value="{{$state['id']}}">{{$state['unique_id']}}</option>
                                         @endforeach
                                     </select>

@@ -6,12 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Models\District;
 use App\Models\state;
 use App\Models\Survey;
+use App\Models\Tax;
 use App\Models\Town;
 use Illuminate\Http\Request;
 use Auth;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
-
+use Tex;
+use DB;
 class SurveyFormController extends Controller
 {
 
@@ -25,9 +27,11 @@ class SurveyFormController extends Controller
     {     
         $user = auth()->user();
 
-        $survey = Survey::where('user_id', $user->id)->latest()->get();
-   
-        // image URL for API
+        $survey =    DB::table('texes')
+         ->select('*')
+         ->join('surveys','texes.survay_id','=','surveys.id')
+         ->where('user_id', $user->id)->get();
+
       
     foreach( $survey as  $surve)
 
@@ -43,7 +47,8 @@ class SurveyFormController extends Controller
         
     }
         return response()->json([
-            'survey' => $survey 
+            'status' => 'success',
+            'data' => $survey 
         ], 200);
     }
 
@@ -99,6 +104,9 @@ if($request->hasfile('image'))
     }
     }
      $image= implode(",",$files);
+
+
+
 
     $validator = Validator::make($request->all(),[
             
@@ -160,6 +168,8 @@ if($request->hasfile('image'))
 
     ]);
 
+
+
    // dd($request->all());
 
     if ($validator->fails()) {
@@ -213,10 +223,12 @@ if($request->hasfile('image'))
         'total_carpet_area_of_house'=> $request->total_carpet_area_of_house,
         'monthly_rate' =>  $request->monthly_rate,
         'yearly_assessment_value_of_property'=>$request->yearly_assessment_value_of_property,
-        'house_tax'=>$request->house_tax,
-        'water_tax'=>$request->water_tax,
-        'other_tax' => $request->other_tax,
-        'total_tax' =>  $request->total_tax,
+
+
+        // 'house_tax'=>$request->house_tax,
+        // 'water_tax'=>$request->water_tax,
+        // 'other_tax' => $request->other_tax,
+        // 'total_tax' =>  $request->total_tax,
 
         'room_carpetarea' =>  $request->room_carpetarea,
         'baramda_carpet' =>  $request->baramda_carpet,
@@ -227,12 +239,28 @@ if($request->hasfile('image'))
         'other_carpet' =>  $request->other_carpet,
         'total_basment_carpet' =>  $request->total_basment_carpet,
         'yearly_assesment' =>  $request->yearly_assesment,
-
+ 
         'image'=>$image,
         'unique_id'=> $unique_id,
         'remark'=>$request->remark,
      
     ]);
+
+
+
+    $survey_id = Survey::latest('id')->first();
+    $survay=($survey_id->id);
+
+    $user = Tax::create([    
+        'staff_id' => Auth::user()->id,
+        'survay_id'=> $survay,
+        'house_tax'=>$request->house_tax,
+        'water_tax'=>$request->water_tax,
+        'other_tax' => $request->other_tax,
+        'total_tax'=>$request->total_tax,      
+    ]);
+    
+
 
     return response()->json([
         'message' => "Survey Form fill successfully."
@@ -247,6 +275,10 @@ else
     if($request->type == 'edit')
 
     {
+        
+
+
+
         $survey = Survey::find($request->id);
 
             $img= [];
@@ -274,10 +306,20 @@ else
 
         // Survey Form Update API use Type update 
 
+
+
         if($request->type == 'update')
         {
+            
+
+      $user = Tax::where('survay_id', $request->id)->get();
+     $servay_id = $user[0]->id;
+
 
     $user = Survey::find($request->id);
+
+    $tax = Tax::find($servay_id);
+    
 
     $files = [];
     if($request->hasfile('image'))
@@ -291,11 +333,11 @@ else
         }
         }
 
-        if(!$files){
-            return response()->json([
-            'message'=>'Survey Image issue'
-            ],500);
-        }
+        // if(!$files){
+        //     return response()->json([
+        //     'message'=>'Survey Image issue'
+        //     ],500);
+        // }
 
         $image= implode(",",$files);
 
@@ -343,6 +385,7 @@ else
        'total_carpet_area_of_house'=> 'required',
        'monthly_rate'=>'required',
        'yearly_assessment_value_of_property',
+
        'house_tax'=>'required',
        'water_tax'=>'required',
        'other_tax'=>'required',
@@ -362,16 +405,28 @@ else
 
      ]);
 
+
+     
+
+
+ 
+    //   dd($validated);
+    //  $survay=($survey_id->id);
+ 
+
+
      if(!$validated){
         return response()->json([
         'message'=>'Something went really wrong!'
-        ],500);
+        ],401);
     }
 
-$user->image= $image;
+
+// $user->image= $image;
 
 
      $user->update($validated);
+     $tax->update($validated);
 
      return response()->json([
          'message' => "Survey Form updated successfully !!!"
@@ -389,17 +444,39 @@ $user->image= $image;
 
     public function edit(Request $request)
     {
+
+     //dd($request->id);
+
+        $survey =    DB::table('texes')
+         ->select('*')
+         ->join('surveys','texes.survay_id','=','surveys.id')
+         ->where('survay_id', $request->id)->get();
     
-        $survey = Survey::find($request->id);
+        //  dd($survey);
+    
+        // $survey = Survey::find($request->id);
+// dd($survey[0]->image);
 
-            $img= [];
-            foreach(explode(',', $survey->image) as $image)            
-            {
-            array_push($img, URL::to('/') .'/images/survey/'.$image);  
+ $data = explode(',', $survey['0']->image);
 
-           $survey->image = $img;
+//  dd($data);
 
-            }
+$r= [];
+foreach($data as $key=> $value){
+
+   
+  $r[] = URL::to('/') .'/images/survey/'.$value;
+
+
+//  dd ($r[]);
+   
+//     $survey['0']->image = $r;
+
+}
+
+
+// $survey->image = $r;
+
 
         if(!$survey){
             return response()->json([
@@ -461,10 +538,22 @@ public function ulb(Request $request)
 }
 
 
+
+
 public function serach(Request $request)
 {
 
-        $serach = Survey::where('unique_id', $request->unique_id)->get();
+
+        // $serach = Survey::where('unique_id', $request->unique_id)->get();
+
+
+
+        $serach =    DB::table('texes')
+        ->select('*')
+        ->join('surveys','texes.survay_id','=','surveys.id')
+        ->where('unique_id', $request->unique_id)->get();
+
+
 
     foreach( $serach as  $surve)
 
@@ -488,7 +577,7 @@ public function serach(Request $request)
         return response()->json([
         'status' => 'error',
         'message'=>'Not Match Unique id  !'
-        ],500);
+        ],200);
     }
 
     return response()->json([

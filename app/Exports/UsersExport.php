@@ -19,5 +19,10 @@ class UsersExport implements FromCollection
       //  return $this->index($municipal);
 
         return Survey::all ();
+
+        return Excel::download(new UsersExport ($municipal), 'filter.xlsx');
+
+
+
     }
 }

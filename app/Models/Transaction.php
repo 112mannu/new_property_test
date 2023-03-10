@@ -13,11 +13,10 @@ class Transaction extends Model
     protected $fillable = [
         'transaction_id',
         'staff_id',
-        'user_id',
-        'type',
-        'debit',
+        'survey_form_id',
+        'tex_type',
+        'amount',
         'created_at',
-
     ];
 
 }

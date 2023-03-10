@@ -201,7 +201,7 @@ table, th, td {
 
         $validated = $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,' . $user->id . ',id',
+            'email' => 'required' . $user->id . ',id',
         ]);
 
 

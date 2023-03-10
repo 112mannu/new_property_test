@@ -9,7 +9,7 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="page-header-left">
-                            <h3>Serve Form Details
+                            <h3>Survey Form Details
                                 <small>Property Tax Admin panel</small>
                             </h3>
                         </div>
@@ -39,7 +39,7 @@
                                <div class="row">
                                 <div class="col-lg-1"></div>
                                 <div class="col-lg-9">
-                                    <h5 class="f-w-600">Serve Details</h5>
+                                    <h5 class="f-w-600">Survey Details</h5>
                                     <div class="table-responsive profile-table">
                                         <table class="table table-responsive">
                                             <tbody>
@@ -91,10 +91,173 @@
                                                 <td>Water source:</td>
                                                 <td>{{$municipal->water_source}}</td>
                                             </tr>
+
                                             <tr>
-                                                <td>Septic Tank Last:</td>
-                                                <td>{{$municipal->septic_tank_last}}/td>
+                                                <td>Toilet Type:</td>
+                                                <td>{{$municipal->toilet_type}}</td>
                                             </tr>
+
+                                            <tr>
+                                                <td>Septic Tank Last Cleaned :</td>
+                                                <td>{{$municipal->septic_tank_last}}</td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td>Connected To sewage Line:</td>
+                                                <td>{{$municipal->connected_to_sewage_line}}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Type of Property:</td>
+                                                <td>{{$municipal->type_of_property}}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Property Situated on (Road Width):</td>
+                                                <td>{{$municipal->property_situated	}}</td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td>Constuction Year:</td>
+                                                <td>{{$municipal->construction_year}}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Floor :</td>
+                                                <td>{{$municipal->floor_no}}</td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td>Carpet floor area :</td>
+                                                <td>{{$municipal->caret_area_of_floor}}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Room No. :</td>
+                                                <td>{{$municipal->no_of_rooms	}}</td>
+                                            </tr>
+
+                                            
+                                            <tr>
+                                                <td>Room area :</td>
+                                                <td>{{$municipal->rooms_area}}</td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td>Room Carpet area :</td>
+                                                <td>{{$municipal->room_carpetarea}}</td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td>Balcony area:</td>
+                                                <td>{{$municipal->balcony_area}}</td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td>Balcony Carpet area:</td>
+                                                <td>{{$municipal->barcoly_carpet}}</td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td>Galiyaara area:</td>
+                                                <td>{{$municipal->galiyaara_area}}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Galiyaara Carpet area:</td>
+                                                <td>{{$municipal->galyara_carpet}}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Kitchen area:</td>
+                                                <td>{{$municipal->kitchen_area}}</td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td>Kitchen Carpet area:</td>
+                                                <td>{{$municipal->kitchan_carpet}}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Bhandar area:</td>
+                                                <td>{{$municipal->bhandar_garh_area}}</td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td>Bhandar Carpet area:</td>
+                                                <td>{{$municipal->bhandar_carpet}}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Other area:</td>
+                                                <td>{{$municipal->other_area}}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Other Carpet area:</td>
+                                                <td>{{$municipal->other_carpet}}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Total area of property:</td>
+                                                <td>{{$municipal->Total_area_of_property}}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Total Covered of House:</td>
+                                                <td>{{$municipal->Total_covered_area_house}}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Total area of House:</td>
+                                                <td>{{$municipal->total_carpet_area_of_house}}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Monthly rate:</td>
+                                                <td>{{$municipal->monthly_rate}}</td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td>Total Carpet Area of house Monthly rate:</td>
+                                                <td>{{$municipal->yearly_assessment_value_of_property}}</td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td>House Tax:</td>
+                                                <td>{{$municipal->house_tax}}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Water Tax:</td>
+                                                <td>{{$municipal->water_tax}}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Other Tax:</td>
+                                                <td>{{$municipal->other_tax}}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Total Tax:</td>
+                                                <td>{{$municipal->total_tax}}</td>
+                                            </tr>
+
+
+
+
+
+
                                             
                                             </tbody>
                                         </table>

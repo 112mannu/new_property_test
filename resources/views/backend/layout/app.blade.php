@@ -82,7 +82,7 @@
         
             @include('backend.layout.header')
 
-            @if(\Session::has('success'))
+            <!-- @if(\Session::has('success'))
                         <div class="text-green-600 pt-5 pl-5">
                             <ul>
                                 <li>{!! \Session::get('success') !!}</li>
@@ -106,7 +106,24 @@
                                 @endforeach
                             </ul>
                         </div>
-                    @endif
+                    @endif -->
+
+
+
+                    @if (\Session::has('success'))
+    <div class="alert alert-success">
+       <p>{{ \Session::get('success') }}</p>
+    </div>
+@endif
+@if (\Session::has('failure'))
+    <div class="alert alert-danger">
+       <p>{{ \Session::get('failure') }}</p>
+    </div>
+@endif
+
+
+
+
 
 
 

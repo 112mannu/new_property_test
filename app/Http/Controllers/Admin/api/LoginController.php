@@ -20,6 +20,7 @@ use DB;
 
 
 
+
 class LoginController extends Controller 
 {
 
@@ -42,27 +43,31 @@ public function login(Request $request)
     $credentials = $request->only('unique_id', 'password');
 
     $token = Auth::guard('api')->attempt($credentials);
-    if (!$token) {
+    if ($token) {
+        $user = Auth::guard('api')->user();
         return response()->json([
-            'status' => 'error',
-            'message' => 'Unauthorized',
-        ], 401);
-        
+                'status' => 'success',
+                'user' => $user,
+                'authorisation' => [
+                'token' => $token,
+                'type' => 'bearer',
+                ]
+            ]); 
     }
-
-    $user = Auth::guard('api')->user();
+    
+    else
+   {
+    
     return response()->json([
-            'status' => 'success',
-            'user' => $user,
-            'authorisation' => [
-            'token' => $token,
-            'type' => 'bearer',
-            ]
-        ]);
+        'status' => 'error',
+        'message' => 'Unauthorized',
+    ], 401);
+    
+    }
 }
 
 
-// Profile Update for user API
+// Profile Update for user API  profile_update  
 
 public function profile_update(Request $request)
 {
@@ -86,18 +91,8 @@ public function profile_update(Request $request)
                 return response()->json([
                     'status' => 'error',
                     'message' => 'user Not Found.'
-                ], 404);
-            }
-
-                $user->name = $request->name;
-                $user->phone = $request->phone;
-                $user-> name= $request->name;
-                $user-> last_name= $request->last_name;
-                $user-> father_name= $request->father_name;
-                $user-> dob= $request->dob;
-                $user-> email= $request->email;
-                $user-> address= $request->address;
-
+                ], 401);
+            } 
 
                 // image Upload for for file
                 if($request->hasFile('profile')){
@@ -106,44 +101,76 @@ public function profile_update(Request $request)
                     }
                 }
 
-                // Email id check use or not
+               
 
-                $list = User::where('email', '=', $user->email)->first();
-
-                if($list  === null)                
-             {  
-                $user->save();
-                return response()->json([
-                    'status' => 'success',
-                    'message' => "Profile successfully updated."
-                ], 200);
-            }
-            
-
-            else
-                {
-                    return response()->json([
-                        'status' => 'error',
-                        'message' => "Email Already exists"
-                    ], 403);
-                }
+                            $user-> name= $request->name;
+                            $user-> last_name= $request->last_name;
+                            $user-> father_name= $request->father_name;
+                            $user->phone = $request->phone;
+                            $user-> dob= $request->dob;
+                            $user-> email_id= $request->email_id;
+                            $user-> address= $request->address;
+                            $user->save();
+                            return response()->json([
+                                'status' => 'success',
+                                'message' => "Profile successfully updated."
+                            ], 200);
+       
             } 
 
             
-            catch (\Exception $e) {
+                    catch (\Exception $e) {
 
-                return response()->json([
-                    'status' => 'error',
-                    'message' => "Something Filed messing!"
-                ], 500);
-              
-            }
+                        return response()->json([
+                            'status' => 'error',
+                            'message' => "Something Filed messing!"
+                        ], 500);
+                    
+                    }
 
         }
 
 }
 
 
+public function profile_update_test(Request $request)
+{
+    $user = auth()->user();
+    $list = User::where('id', '=', $user->id)->first();
+
+    if($request->hasFile('profile')){
+        if($name = $this->saveImage($request->profile)){
+            $user->profile = $name;
+        }
+    }
+
+     if(!empty($list))                
+            { 
+                   $user = User::find($user->id);
+                   $user->name = $request->name;
+                   $user->phone = $request->phone;
+                   $user-> name= $request->name;
+                   $user-> last_name= $request->last_name;
+                   $user-> father_name= $request->father_name;
+                   $user-> dob= $request->dob;
+                   $user-> email= $request->email;
+                   $user-> address= $request->address;
+                   $user->save();
+                   return response()->json([
+                       'status' => 'success',
+                       'message' => "Profile successfully updated."
+                   ], 200);
+        } else 
+
+        {
+
+            return response()->json([
+                'status' => 'error',
+                'message' => "Something Filed messing!"
+            ], 500);
+        }
+
+}
 // User profile view API
 
 public function profile_view(Request $request) 
@@ -160,7 +187,6 @@ public function profile_view(Request $request)
         $list->profile = $path;
        }
  
-
 
 
         return response()->json([
@@ -225,6 +251,7 @@ public function Wallet()
 
 }
 
+
 public function payment(Request $request)
 
 {
@@ -275,8 +302,6 @@ return response()->json([
 
 }
 
-
-
 else
 {
     return response()->json([
@@ -284,7 +309,6 @@ else
         'massage'=> 'Low balance',
     ],200);   
  }
-
 
 }
 

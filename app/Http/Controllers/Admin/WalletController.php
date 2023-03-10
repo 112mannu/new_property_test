@@ -13,23 +13,16 @@ class WalletController extends Controller
 {
     public function index()
     {
-
-        
-
-        $user = User::with('wellate')->get();
-        $wallet = Wallet::with('user')->get();
-
-
-        $userss = User::with('adminName')->get();
-        $admin = Wallet::with('admin')->get();
-
-
-
-        $blance = Wallet::all();
-        return view('backend.wallet.index', compact('blance', 'wallet', 'user', 'admin', 'userss'));
+        $blance=   DB::table('wallets')
+        ->select('*')
+        ->join('users','wallets.user_id','=','users.id')
+       //  ->groupBy('users.id', 'wallets.user_id')
+         ->orderBy('wallets.id', 'desc')
+        ->get();
+    
+     //   $blance = Wallet::all();
+        return view('backend.wallet.index', compact('blance'));
     }
-
-
 
     public function create()
     {
@@ -52,19 +45,14 @@ class WalletController extends Controller
             'user_id' => $request->user_id,
             'credit' => $request->credit,
         ]);
-
+        
         return redirect()->back()->withSuccess('Request Balance Successfully !!!');
     }
-
-
 
     public function edit(Wallet $Wallet)
     {
         return view('backend.wallet.edit', ['Wallet' => $Wallet]);
     }
-
-
-
 
 
     public function update(Request $request)
@@ -73,23 +61,27 @@ class WalletController extends Controller
         // dd ($request->user_id);
 
 
-        $data = Wallet::where('id', $request->user_id)->first('user_id');
+        $data = Wallet::where('user_id', $request->user_id)->first('id');
+
+      //  dd($data);
+
+        $user_id =  $data->id;
 
 
-        $user_id =  $data->user_id;
+     if($request->status == 1 )
 
+     {
 
-   if($request->status == 1 )
-
-   {
-
+      
         $totalcred =  DB::table('wallets')
             ->select('*')
             ->where('user_id', $user_id)
             ->where('credit', '!=', '')
             ->orderBy('id', 'desc')
             ->limit(1)
-            ->get();
+            ->get('credit');
+
+            // dd($totalcred->credit);
 
          $cred= $totalcred[0]->credit;
 
@@ -113,8 +105,12 @@ class WalletController extends Controller
         $user->update();
         return back()->with('status', 'successfully updated');
    }
+
    else
    {
+
+    dd('ookjjj');
+
     if($request->status == 0 )
 
     {
@@ -141,11 +137,8 @@ class WalletController extends Controller
     }
 
    }
-
-
         // return redirect()->back()->withSuccess('User updated !!!');
-        
-
+    
     }
 
 

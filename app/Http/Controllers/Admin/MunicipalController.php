@@ -11,6 +11,7 @@ use App\Models\Municipal;
 use App\Exports\UsersExport;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Tax;
 use Maatwebsite\Excel\Facades\Excel;
 
 
@@ -37,33 +38,55 @@ class MunicipalController extends Controller
     public function index(Request $request)
     {
 
-        $frondate= $request->state_date;
-        $todate = $request->end_date;
+//         $frondate= $request->state_date;
+//         $todate = $request->end_date;
 
-        if($frondate != ""){
+//         if($frondate != ""){
 
-            $municipal = Survey::whereBetween('created_at', [$frondate, Carbon::parse($todate)->endOfDay(),])->get();
+//             $municipal = Survey::whereBetween('created_at', [$frondate, Carbon::parse($todate)->endOfDay(),])->get();
 
-             $user= User::with('form')->paginate(15);  
+//              $user= User::with('form')->paginate(15);  
             
-        }else{
+//         }else{
 
-      $municipal = Survey::latest()->get();
+//       $municipal = Survey::latest()->get();
 
-    
-  $user= User::with('form')->get();  
-  $municipal = Survey::with('username')->latest()->paginate(15); 
+
+
+//       $tax= Tax::with('survey')->get();  
+//       $municipal = Survey::with('tax')->get(); 
+
+
+//   $user= User::with('form')->get();  
+//   $municipal = Survey::with('username')->latest()->paginate(15); 
   
-        }
+//         }
 
 
-        return view('backend.survey-form.index', compact('municipal', 'user'));        
+
+
+
+$municipal =    DB::table('surveys')
+
+         ->select('*','surveys.unique_id', 'texes.house_tax', 'texes.water_tax', 'texes.other_tax', 'texes.total_tax' )
+           ->join('users','surveys.user_id','=','users.id')
+        ->join('texes','surveys.id','=','texes.survay_id')->get();
+
+        //  ->where('user_id', $user->id)
+
+
+// dd($municipal);
+
+
+        return view('backend.survey-form.index', compact('municipal'));        
     } 
 
 
     public function Excel()
     {
         return  Excel::download(new UsersExport, 'municipal.index.xlsx');
+
+
     }
 
     public function exportpdf(Request $request, $id)
@@ -98,6 +121,7 @@ class MunicipalController extends Controller
     public function show(Survey $municipal)
 
     {
+        
         return view('backend.survey-form.show', ['municipal' => $municipal]);
     }
 
@@ -131,7 +155,10 @@ class MunicipalController extends Controller
         {    
     $municipal =  Survey::where('property_owner_name', 'LIKE', '%'.$request->name."%")->latest()->get();
     return view('backend.survey-form.index', compact('municipal'));   
+    
+    return Excel::download(new UsersExport ($municipal), 'search.xlsx');
 } 
+
    elseif($request->unique_id != "")
 
      { 
@@ -156,6 +183,7 @@ class MunicipalController extends Controller
      {
      $municipal =  Survey::whereBetween("surveys.created_at",[$request->state_date, $request->end_date] )->latest()->get();
      return view('backend.survey-form.index', compact('municipal'));
+     
 
       } 
             

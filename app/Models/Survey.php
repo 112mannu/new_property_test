@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use App\Models\Tax;
 
 class Survey extends Model
 {
@@ -35,7 +36,6 @@ class Survey extends Model
         'type_of_property',
         'property_situated',
         'remark',
-        'created_at',
 
         'state_id',
         'district_id',
@@ -56,10 +56,10 @@ class Survey extends Model
         'total_carpet_area_of_house',
         'monthly_rate',
         'yearly_assessment_value_of_property',
-        'house_tax',
-        'water_tax',
-        'other_tax',
-        'total_tax',
+        // 'house_tax',
+        // 'water_tax',
+        // 'other_tax',
+        // 'total_tax',
         
         'room_carpetarea',
         'baramda_carpet',
@@ -70,10 +70,17 @@ class Survey extends Model
         'other_carpet',
         'total_basment_carpet',
         'yearly_assesment',
-
         'image',
         'unique_id',
+        'created',
     ];
+
+
+    public function  tax()
+    {
+        return $this->belongsTo(Tax::class, 'survay_id', 'id');
+    }
+    
 
 
     public function  username()

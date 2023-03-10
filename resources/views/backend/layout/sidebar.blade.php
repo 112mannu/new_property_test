@@ -72,7 +72,7 @@
                             <line x1="3" y1="6" x2="3" y2="6"></line>
                             <line x1="3" y1="12" x2="3" y2="12"></line>
                             <line x1="3" y1="18" x2="3" y2="18"></line>
-                        </svg> <span>Survey Form</span><i class="fa fa-angle-right pull-right"></i></a>
+                        </svg> <span>Survey Data</span><i class="fa fa-angle-right pull-right"></i></a>
                     <!-- <ul class="sidebar-submenu">
                         <li><a href="service.html"><i class="fa fa-circle"></i>Service list</a>
                         </li>
@@ -225,9 +225,14 @@
                     <ul class="sidebar-submenu">
 
                         <li><a href="{{route('admin.wallet.create')}}"><i class="fa fa-circle"></i>Request Fund</a> </li>
+
+                        @can ('wallet')
                         
                         <li><a href="{{route('admin.wallet.index')}}"><i class="fa fa-circle"></i> Balance</a> </li>
-                     
+                        @endcanany
+                        @can ('fund')
+                        <li><a href="{{url('admin/fund')}}"><i class="fa fa-circle"></i> Fund</a> </li>
+                         @endcanany
                     </ul>   
                 </li>
 

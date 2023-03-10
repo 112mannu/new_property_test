@@ -197,29 +197,33 @@ table, th, td {
 
     public function update(Request $request, User $user)
     {
-    
         $user->update($request->all());
-        return redirect()->back()->withSuccess('Staff updated !!!');
-    }
+        // return redirect()->back()->withSuccess('Staff updated !!!');
 
+
+        return redirect()->with('success', 'Staff updated!');
+
+    }
 
 
 
     public function destroy(User $user)
     {
+
+      
  
 
      $id= $user->id;
 
-     $list = Workassign::where('user_id', '=', $user->id)->first();
+    //  $list = Workassign::where('user_id', '=', $user->id)->first();
 
-        if($list === null)
-        {
+    //     if($list === null)
+        
             $user->delete();
             return redirect()->back()->withSuccess('User deleted !!!');           
-        }
+        
 
-        return redirect()->back()->withSuccess('Something went really wrong!');
+        // return redirect()->back()->withSuccess('Something went really wrong!');
     }
 
 

@@ -46,42 +46,47 @@
                         <th class="sorting_asc" tabindex="0" aria-controls="basic-1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="S.No.: activate to sort column descending" style="min-width: 100px;">
                             S.No.
                         </th>
-                        <th class="sorting" tabindex="0" aria-controls="basic-1" rowspan="1" colspan="1" aria-label="User Name: activate to sort column ascending" style="min-width: 187px;"> Name</th>
-                        <th class="sorting" tabindex="0" aria-controls="basic-1" rowspan="1" colspan="1" aria-label="Email: activate to sort column ascending" style="min-width: 187px;">Admin Name</th>
+                        <th class="sorting" tabindex="0" aria-controls="basic-1" rowspan="1" colspan="1" aria-label="User Name: activate to sort column ascending" style="min-width: 150px;"> Name</th>
+                        <!-- <th class="sorting" tabindex="0" aria-controls="basic-1" rowspan="1" colspan="1" aria-label="Email: activate to sort column ascending" style="min-width: 187px;">Admin Name</th> -->
+                        <th class="sorting" tabindex="0" aria-controls="basic-1" rowspan="1" colspan="1" aria-label="Email: activate to sort column ascending" style="min-width: 100px;">Login ID</th>
                         <th class="sorting" tabindex="0" aria-controls="basic-1" rowspan="1" colspan="1" aria-label="Email: activate to sort column ascending" style="min-width: 100px;">Blance</th>
+                        <th class="sorting" tabindex="0" aria-controls="basic-1" rowspan="1" colspan="1" aria-label="Email: activate to sort column ascending" style="min-width: 100px;">Credit Blance </th>
+
                         <th class="sorting" tabindex="0" aria-controls="basic-1" rowspan="1" colspan="1" aria-label="Email: activate to sort column ascending" style="min-width: 150px;">Status</th>
                         <th class="sorting" tabindex="0" aria-controls="basic-1" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="min-width: 150px;">Remark</th>
                     </tr>
                 </thead>
                 <?php $i = 1 ?>
                 <tbody>
-                @can('ULB Ward access')
-              
-              @foreach($blance as $blance)
+                    @can('ULB Ward access')
+
+                    @foreach($blance as $blance)
 
                     <tr role="row" class="odd">
 
                         <td class="sorting_1">{{$i++}}</td>
-                        <td>{{$blance->user->name}}</td>
-                        <td>{{$blance->admin->name}}</td>
+                        <td>{{$blance->name}} {{$blance->last_name}} </td>
+
+                        <td>{{$blance->unique_id}}</td>
+
                         <td>{{$blance->balance}}</td>
+                        <td>{{$blance->credit }}</td>
 
-
-                        @if($blance->status == '1')  
+                        @if($blance->status == '1')
 
                         <td> <span class="text-success">Active</span></td>
 
-                        @elseif($blance->status == '0') 
-                            
-                            <td><span class="text-danger">In Approve</span></td>
-                                                  
-                           @endif
-                                               
- 
-                                    <td>
-                                    <a data-id="{{$blance->id}}" class="list">  <button  type="buttons"  class="btn btn-primarys" data-toggle="modal" data-target="#addblog"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
-                                        
-                                    </td>
+                        @elseif($blance->status == '0')
+
+                        <td><span class="text-danger">In Approve</span></td>
+
+                        @endif
+
+
+                        <td>
+                            <a data-id="{{$blance->id}}" class="list"> <button type="buttons" class="btn btn-primarys" data-toggle="modal" data-target="#addblog"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
+
+                        </td>
                     </tr>
 
                     @endforeach
@@ -90,82 +95,78 @@
                 </tbody>
             </table>
         </div>
-        </div>
     </div>
+</div>
 
 
-    <div class="modal fade" id="addblog"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title f-w-600" id="exampleModalLabel">Remark</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span>
-                    </button>
-                </div>
+<div class="modal fade" id="addblog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title f-w-600" id="exampleModalLabel">Remark</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span>
+                </button>
+            </div>
 
 
-                @foreach(\App\Models\Wallet::where('user_id')->where('credit', '!=', '')->orderBy('id', 'desc')->limit(1) ->get() as $state)
-                 {{  $state->credit}}
+            @foreach(\App\Models\Wallet::where('user_id')->where('credit', '!=', '')->orderBy('id', 'desc')->limit(1) ->get() as $state)
+            {{ $state->credit}}
 
 
-                               @endforeach
+            @endforeach
 
 
-                <div class="modal-body" id="correct_email">
-                    <form class="needs-validation" method="Post" action="{{route('admin.wallet.update', $blance->id)}}" >
+            <div class="modal-body" id="correct_email">
+                <form class="needs-validation" method="Post" action="{{route('admin.wallet.update', $blance->id)}}">
                     @csrf
                     @method ('PUT')
-                
-                        <div class="form">
 
-                        
+                    <div class="form">
 
-                            <div class="form-group">
-                                <label for="validationCustom02" class="mb-1">Request Fund</label>
-                                <select class="form-control" name="status">
-                                    <option value="1" >Approved</option>
-                                    <option value="0">In Approved</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="validationCustom02" class="mb-1">Remark </label>
-                                <textarea class="form-control" name="remark" placeholder="Remark" rows="3"></textarea>
-                            </div>
 
-                            <input type="hidden" id="update" name="user_id" >
 
-                           
-                           
-                            <div class="form-group">
-                                <button class="btn btn-primary" type="submit">Update</button>
-                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
-                            </div>
+                        <div class="form-group">
+                            <label for="validationCustom02" class="mb-1">Request Fund</label>
+                            <select class="form-control" name="status">
+                                <option value="1">Approved</option>
+                                <option value="0">In Approved</option>
+                            </select>
                         </div>
-                    </form>
-                </div>
+                        <div class="form-group">
+                            <label for="validationCustom02" class="mb-1">Remark </label>
+                            <textarea class="form-control" name="remark" placeholder="Remark" rows="3"></textarea>
+                        </div>
+
+                        <input type="hidden" id="update" name="user_id">
+
+
+
+                        <div class="form-group">
+                            <button class="btn btn-primary" type="submit">Update</button>
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
 
 <script>
+    $(".list").on('click', function() {
 
- $(".list").on('click', function() { 
+        var data = $(this).data("id");
 
- var data= $(this).data("id");
+        //  $('#update').modle(show);
 
-//  $('#update').modle(show);
-
-// $("#update").html("<span>" + error +  "</span>")
-
-
-document.getElementById('update').value = data;
+        // $("#update").html("<span>" + error +  "</span>")
 
 
-
-});
+        document.getElementById('update').value = data;
 
 
 
+    });
 </script>
 
 @endsection

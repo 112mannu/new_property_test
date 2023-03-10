@@ -101,10 +101,17 @@
                                             <input type="checkbox" hidden="hidden" id="username">
                                             <label class="switch-btn" for="username"></label>
                                         </label> -->
-                                        <a href="{{route('admin.staff.edit',$user->id)}}" class="jsgrid-button jsgrid-edit-button"></a>
+                                        <div class="cutom-edit-del">
+                        
+                            <a href="{{route('admin.staff.edit',$user->id)}}"> <button class="jsgrid-button jsgrid-edit-button" data-toggle="modal" data-target="#editblog" type="button" title="Edit"></button></a>
+                    
 
-
-                                        <a href="{{route('admin.staff.destroy',$user->id)}}" ><button class="jsgrid-button jsgrid-delete-button" ></button></a>
+                            <form action="{{ route('admin.staff.destroy',$user->id)}}" method="POST" class="inline">
+                                @csrf
+                                @method('delete')
+                                <button id="update" class="jsgrid-button jsgrid-delete-button"></button>
+                            </form>
+                                        </div>
 
                                     </td>
                                 </tr>

@@ -109,7 +109,7 @@
                                     <th class="sorting" tabindex="0" aria-controls="basic-1" rowspan="1" colspan="1" aria-label="User Name: activate to sort column ascending" style="min-width: 130px;">Guardian Name</th>
                                     <th class="sorting" tabindex="0" aria-controls="basic-1" rowspan="1" colspan="1" aria-label="Email: activate to sort column ascending" style="min-width: 100px;">Mobile No.</th>
                                     <th class="sorting" tabindex="0" aria-controls="basic-1" rowspan="1" colspan="1" aria-label="Mobile: activate to sort column ascending" style="min-width: 100px;">Aadhaar No.</th>
-                                    <th class="sorting" tabindex="0" aria-controls="basic-1" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="min-width: 100px;">Staff Name</th>
+                                    <!-- <th class="sorting" tabindex="0" aria-controls="basic-1" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="min-width: 100px;">Staff Name</th> -->
                                     <th class="sorting" tabindex="0" aria-controls="basic-1" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="min-width: 100px;">Action</th>
                                 </tr>
                             </thead>
@@ -128,14 +128,18 @@
                                     <td>{{$municipal->father_husband_name}}</td>
                                     <td>{{$municipal->mobile_number}}</td>
                                     <td>{{$municipal->aadhar_card_no}}</td>
+
                                     
-                                    <td>{{$municipal->username->name}}</td>
+
+
+                                   
+                                    
                                     <td>
                                         <!-- <label class="label-switch switch-primary">
                                             <input type="checkbox" hidden="hidden" id="username">
                                             <label class="switch-btn" for="username"></label>
                                         </label> -->
-                                   <a href="{{route('admin.municipal.show',$municipal->id)}}"> <button type="buttons" class="btn btn-primarys" data-toggle="modal" data-target="#addblog"><i class="fa fa-eye" aria-hidden="true"></i></button> </a>
+                                   <a href="{{route('admin.municipal.show',$municipal->survay_id)}}"> <button type="buttons" class="btn btn-primarys" data-toggle="modal" data-target="#addblog"><i class="fa fa-eye" aria-hidden="true"></i></button> </a>
                                         <!-- <button class="jsgrid-button jsgrid-delete-button" type="button" title="Delete"></button> -->
 
                                     </td>

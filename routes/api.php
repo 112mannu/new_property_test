@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\api\LoginController;
 use App\Http\Controllers\Admin\api\SurveyFormBController;
 use App\Http\Controllers\Admin\api\SurveyFormController;
+use App\Http\Controllers\Admin\api\WalletController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -48,15 +49,23 @@ Route::controller(SurveyFormController::class)->group(function () {
  });
 
 
-
  Route::controller(LoginController::class)->group(function () {
     Route::post('login', 'login');
     Route::post('profile-update', 'profile_update');
     Route::get('profile-view', 'profile_view');
     Route::post('logout', 'logout');
-    Route::get('wallet', 'Wallet');  
-    Route::post ('payment','payment');
+   //  Route::get('wallet', 'Wallet');  
+   //  Route::post ('payment','payment');
 
  
  });
+
+ Route::controller(WalletController::class)->group(function () {
+
+   Route::get('wallet', 'Wallet');  
+   Route::post ('payment','payment');
+
+
+});
+
 

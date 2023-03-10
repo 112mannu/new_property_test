@@ -55,6 +55,7 @@
                                 <label for="validationCustom02" class="mb-1">Role</label>
                                 <ul class="stylish-checkbox mt-1">
 
+
                                 @foreach($roles as $role)
                                     <li>
                                       <input class="form-checkbox  h-5 w-5 text-blue-600 " type="checkbox"  name="roles[]" value="{{$role->id}}">

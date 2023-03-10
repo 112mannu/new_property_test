@@ -4,6 +4,7 @@ namespace App\Models;
 use App\Models\Workassign;
 use App\Models\Survey;
 use App\Models\Wallet;
+use App\Models\Tax;
 
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
@@ -52,7 +53,6 @@ class User extends Authenticatable implements JWTSubject
         'profile',
         'aadhar_front',
         'aadhar_back'
-
     ];
 
 
@@ -87,11 +87,11 @@ class User extends Authenticatable implements JWTSubject
 
      */
 
-    protected $casts = [
+    // protected $casts = [
 
-        'email_verified_at' => 'datetime',
+    //     'email_verified_at' => 'datetime',
 
-    ];
+    // ];
 
     public function getJWTIdentifier() {
         return $this->getKey();
@@ -151,6 +151,11 @@ class User extends Authenticatable implements JWTSubject
     }
 
    
+    public function tax()
+
+    {
+        return $this->belongsTo(Tax::class, 'survay_id', 'id');
+    }
     
 
 
